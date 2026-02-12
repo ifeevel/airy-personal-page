@@ -81,6 +81,8 @@
         overflow: hidden;
         border-radius: 50%;
         transition: background-color 0.3s;
+        /* 按钮独立于全局 View Transition 淡化，避免图标动画重影和跳变 */
+        view-transition-name: theme-toggle-button;
     }
 
     #theme-toggle:hover {
