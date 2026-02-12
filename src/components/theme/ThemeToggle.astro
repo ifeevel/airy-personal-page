@@ -178,17 +178,28 @@
     const handleToggleClick = () => {
         const themeToggleBtn = document.getElementById("theme-toggle");
 
-        // 1. 添加动画标记类(无需移除，依靠 CSS 的 animation-name 切换重置动画)
-        if (themeToggleBtn) themeToggleBtn.classList.add("switching");
+        // 状态逻辑封装
+        const toggleThemeLogic = () => {
+            // 添加动画标记类(无需移除，依靠 CSS 的 animation-name 切换重置动画)
+            if (themeToggleBtn) themeToggleBtn.classList.add("switching");
 
-        // 2. 状态切换：基于当前状态更新 localStorage
-        const isDark = document.documentElement.classList.contains("dark");
-        const nextTheme = isDark ? "light" : "dark";
-        try { localStorage.setItem("theme", nextTheme); } catch (e) {}
+            // 更新 localStorage
+            const isDark = document.documentElement.classList.contains("dark");
+            const nextTheme = isDark ? "light" : "dark";
+            try { localStorage.setItem("theme", nextTheme); } catch (e) {}
 
-        // 3. 同步 UI：直接触发全局定义的主题应用逻辑(兼回退)
-        // @ts-ignore
-        typeof applyTheme === "function" ? applyTheme() : document.documentElement.classList.toggle("dark");
+            // 执行主题应用逻辑(兼回退)
+            // @ts-ignore
+            typeof applyTheme === "function" ? applyTheme() : document.documentElement.classList.toggle("dark");
+        };
+
+        // 使用 View Transitions API 执行极简交叉淡化
+        if (!document.startViewTransition) {
+            toggleThemeLogic();
+            return;
+        }
+
+        document.startViewTransition(() => { toggleThemeLogic(); });
     };
 
     // 绑定主题切换按钮事件
