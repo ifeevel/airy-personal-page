@@ -13,7 +13,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    max-width: 800px;
+    max-width: 50rem;
     display: flex;
     flex-direction: column;
     /* 采用 margin-bottom 替代 gap，是为了在退出动画时能平滑坍缩间距 */
@@ -200,7 +200,7 @@
     0% {
         opacity: 1;
         transform: translateY(0);
-        max-height: 200px;
+        max-height: 12.5rem;
         margin-bottom: 0.75rem;
         padding-top: 0.875rem; padding-bottom: 0.875rem;
         border-width: 1px;
@@ -209,7 +209,7 @@
     30% {
         opacity: 0;
         transform: translateY(-1rem);
-        max-height: 200px; /* 暂不缩减高度，先完成淡出 */
+        max-height: 12.5rem; /* 暂不缩减高度，先完成淡出 */
         margin-bottom: 0.75rem;
         padding-top: 0.875rem; padding-bottom: 0.875rem;
         border-width: 1px;
